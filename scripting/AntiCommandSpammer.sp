@@ -50,7 +50,7 @@ void BuildStringmaps() {
 	g_bReady = false;
 	g_smCommands = new StringMap()
 
-	for (let i = 0; i <= MaxClients; i++) {
+	for (int i = 0; i <= MaxClients; i++) {
 		g_smPlayerCommands[i] = new StringMap()
 	}
 
@@ -72,9 +72,9 @@ void LoadCommands() {
 		char cSplit[2][256];
 
 		fConfig.ReadLine(cLine, sizeof(cLine));
-		SplitString(cLine, " ", cSplit, 256);
+		ExplodeString(cLine, " ", cSplit, 2, 256);
 
-		g_smCommands.SetValue(cSplit[0], view_as<int>(cSplit[1]));
+		g_smCommands.SetValue(cSplit[0], StringToInt(cSplit[1]));
 	}
 
 	delete fConfig;
@@ -98,16 +98,18 @@ public Action Listener_Global(int iClient, const char[] cCommand, int iArgc) {
 
 			if (fDiff > 0.0) {
 				char cFormattedDiff[512];
-				FormatTime(fDiff, cFormattedDiff, sizeof(cFormattedDiff));
+				FormatDiffTime(fDiff, cFormattedDiff, sizeof(cFormattedDiff));
 
 				ReplyToCommand(iClient, "%t", "Blocked", cCommand, cFormattedDiff);
 				return Plugin_Stop;
 			}
 		}
 	}
+
+	return Plugin_Continue;
 }
 
-void FormatTime(float fTime, char[] cBuffer, int iMaxLength) {
+void FormatDiffTime(float fTime, char[] cBuffer, int iMaxLength) {
 	if (fTime >= 60.0) {
 		Format(cBuffer, iMaxLength, "%im ", RoundToFloor(fTime / 60));
 	}
