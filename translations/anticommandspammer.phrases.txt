@@ -1,0 +1,8 @@
+"Phrases"
+{
+	"Blocked"
+	{
+		"#format"	"{1:s},{2:s}"
+		"en"	"You've been blocked from using the command {1} for {2}"
+	}
+}
