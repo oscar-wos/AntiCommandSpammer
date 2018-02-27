@@ -6,6 +6,12 @@ Allows excessive configuration of what commands are able to be spammed / not spa
 
 Drag the compiled .smx, and translations or download the whole scripting folder and compile yourself. Server needs a map change in order to load translations into memory.
 
+### Config
+
+Config is simply set with the command name, and the interval frequency of how often they can do it.
+
+For example: `sm_w 10` - This would mean a player can only use the command `sm_w` every `10` seconds. Any attempt before the `10` second refresher will be nulled, and their refresh timer will be readjusted re-accordingly.
+
 ### Compiler
 
 Pawn 1.8 - build 6041
