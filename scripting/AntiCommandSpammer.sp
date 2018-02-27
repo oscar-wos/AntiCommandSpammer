@@ -17,7 +17,7 @@
 
 // Compiler Info: Pawn 1.8 - build 6041
 
-#define PLUGIN_VERSION "1.00"
+#define PLUGIN_VERSION "1.00.2"
 
 #include <sourcemod>
 
@@ -74,7 +74,7 @@ void LoadCommands() {
 		fConfig.ReadLine(cLine, sizeof(cLine));
 		ExplodeString(cLine, " ", cSplit, 2, 256);
 
-		g_smCommands.SetValue(cSplit[0], StringToInt(cSplit[1]));
+		g_smCommands.SetValue(cSplit[0], StringToFloat(cSplit[1]));
 	}
 
 	delete fConfig;
@@ -84,16 +84,16 @@ void LoadCommands() {
 
 public Action Listener_Global(int iClient, const char[] cCommand, int iArgc) {
 	if (!g_bReady) return Plugin_Continue;
-	int iCommandValue;
+	float fCommandValue;
 
-	if (g_smCommands.GetValue(cCommand, iCommandValue)) {
+	if (g_smCommands.GetValue(cCommand, fCommandValue)) {
 		float fGameTime = GetGameTime();
 		float fPlayerCommandValue;
 
 		if (!g_smPlayerCommands[iClient].GetValue(cCommand, fPlayerCommandValue)) {
 			g_smPlayerCommands[iClient].SetValue(cCommand, fGameTime);
 		} else {
-			float fDiff = (fPlayerCommandValue + float(iCommandValue)) - fGameTime;
+			float fDiff = (fPlayerCommandValue + fCommandValue) - fGameTime;
 			g_smPlayerCommands[iClient].SetValue(cCommand, fGameTime);
 
 			if (fDiff > 0.0) {
