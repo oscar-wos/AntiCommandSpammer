@@ -4,5 +4,6 @@
 	{
 		"#format"	"{1:s},{2:s}"
 		"en"	"You've been blocked from using the command {1} for {2}"
+		"fr"	"Vous avez été bloqué utilisé la commmande {1} pour {2}"
 	}
 }
